@@ -1,24 +1,28 @@
-
 #include <iostream>
-#include <algorithm>
-#include <vector>
 using namespace std;
 
-int main (){
-    vector<long long> num;
-    long long x;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    while (cin>>x){
-        num.push_back(x);
-        sort (num.begin(), num.end());
+    long long S, D;
 
-        int n = num.size();
-        if (n%2==1) {
-            cout <<  num[n/2] << endl; 
+    while (cin >> S >> D) {
+        long long lo = 1, hi = 2000000000LL;
+
+        while (lo < hi) {
+            long long mid = lo + (hi - lo) / 2;
+
+            __int128 days = (__int128)mid * (2 * (__int128)S + mid - 1) / 2;
+
+            if (days >= D)
+                hi = mid;
+            else
+                lo = mid + 1;
         }
-        else {
-            cout << (num[n/2-1] + num[n/2]) /2 << endl;
-        }
+
+        cout << S + lo - 1 << '\n';
     }
 
     return 0;
+}
